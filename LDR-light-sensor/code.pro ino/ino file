@@ -1,0 +1,37 @@
+// ================================
+// LDR Light Sensor Demo
+// Author: Beginner Arduino Project
+// Description: Reads light level and prints status
+// ================================
+
+const int LDR_PIN = A0;      // LDR connected to Analog pin A0
+const int LED_PIN = 13;      // Built-in LED on pin 13
+int lightValue = 0;          // Variable to store light reading
+int threshold = 500;         // Threshold to decide dark or bright
+
+void setup() {
+  Serial.begin(9600);               // Start Serial Monitor
+  pinMode(LED_PIN, OUTPUT);         // Set LED pin as output
+  Serial.println("LDR Demo Started!");
+  Serial.println("===================");
+}
+
+void loop() {
+  lightValue = analogRead(LDR_PIN);  // Read LDR value (0 - 1023)
+
+  Serial.print("Light Value: ");
+  Serial.println(lightValue);        // Print raw value
+
+  if (lightValue < threshold) {
+    // Dark condition
+    Serial.println("Status: It's Dark! 🌙 - LED ON");
+    digitalWrite(LED_PIN, HIGH);     // Turn LED ON
+  } else {
+    // Bright condition
+    Serial.println("Status: It's Bright! ☀️ - LED OFF");
+    digitalWrite(LED_PIN, LOW);      // Turn LED OFF
+  }
+
+  Serial.println("-------------------");
+  delay(1000);   // Wait 1 second before next reading
+}
